@@ -1,0 +1,826 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{1. Regression discontinuity: banking
+recovery}\label{regression-discontinuity-banking-recovery}
+
+After a debt has been legally declared "uncollectable" by a bank, the
+account is considered to be "charged-off." But that doesn't mean the
+bank simply walks away from the debt. They still want to collect some of
+the money they are owed. The bank will score the account to assess the
+expected recovery amount, that is, the expected amount that the bank may
+be able to receive from the customer in the future (for a fixed time
+period such as one year). This amount is a function of the probability
+of the customer paying, the total debt, and other factors that impact
+the ability and willingness to pay.
+
+The bank has implemented different recovery strategies at different
+thresholds (\$1000, \$2000, etc.) where the greater the expected
+recovery amount, the more effort the bank puts into contacting the
+customer. For low recovery amounts (Level 0), the bank just adds the
+customer's contact information to their automatic dialer and emailing
+system. For higher recovery strategies, the bank incurs more costs as
+they leverage human resources in more efforts to contact the customer
+and obtain payments. Each additional level of recovery strategy requires
+an additional \$50 per customer so that customers in the Recovery
+Strategy Level 1 cost the company \$50 more than those in Level 0.
+Customers in Level 2 cost \$50 more than those in Level 1, etc.
+
+The big question: does the extra amount that is recovered at the higher
+strategy level exceed the extra \$50 in costs? In other words, was there
+a jump (also called a "discontinuity") of more than \$50 in the amount
+recovered at the higher strategy level? We'll find out in this notebook.
+
+\includegraphics{https://assets.datacamp.com/production/project_504/img/Regression\%20Discontinuity\%20graph.png}
+
+First, we'll load the banking dataset and look at the first few rows of
+data. This puts us in a good position to understand the dataset itself
+and begin thinking about how to analyze the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Import modules}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{} Read in dataset}
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets/bank\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the first few rows of the DataFrame}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}      id  expected\_recovery\_amount  actual\_recovery\_amount recovery\_strategy  \textbackslash{}
+         0  2030                       194                 263.540  Level 0 Recovery   
+         1  1150                       486                 416.090  Level 0 Recovery   
+         2   380                       527                 429.350  Level 0 Recovery   
+         3  1838                       536                 296.990  Level 0 Recovery   
+         4  1995                       541                 346.385  Level 0 Recovery   
+         
+            age     sex  
+         0   19    Male  
+         1   25  Female  
+         2   27    Male  
+         3   25    Male  
+         4   34    Male  
+\end{Verbatim}
+            
+    \subsection{2. Graphical exploratory data
+analysis}\label{graphical-exploratory-data-analysis}
+
+The bank has implemented different recovery strategies at different
+thresholds (\$1000, \$2000, \$3000 and \$5000) where the greater the
+Expected Recovery Amount, the more effort the bank puts into contacting
+the customer. Zeroing in on the first transition (between Level 0 and
+Level 1) means we are focused on the population with Expected Recovery
+Amounts between \$0 and \$2000 where the transition between Levels
+occurred at \$1000. We know that the customers in Level 1 (expected
+recovery amounts between \$1001 and \$2000) received more attention from
+the bank and, by definition, they had higher Expected Recovery Amounts
+than the customers in Level 0 (between \$1 and \$1000).
+
+Here's a quick summary of the Levels and thresholds again:
+
+Level 0: Expected recovery amounts \textgreater{}\$0 and
+\textless{}=\$1000
+
+Level 1: Expected recovery amounts \textgreater{}\$1000 and
+\textless{}=\$2000
+
+The threshold of \$1000 separates Level 0 from Level 1
+
+A key question is whether there are other factors besides Expected
+Recovery Amount that also varied systematically across the \$1000
+threshold. For example, does the customer age show a jump
+(discontinuity) at the \$1000 threshold or does that age vary smoothly?
+We can examine this by first making a scatter plot of the age as a
+function of Expected Recovery Amount for a small window of Expected
+Recovery Amount, \$0 to \$2000. This range covers Levels 0 and 1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} Scatter plot of Age vs. Expected Recovery Amount}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{60}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Expected Recovery Amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3. Statistical test: age vs. expected recovery
+amount}\label{statistical-test-age-vs.-expected-recovery-amount}
+
+We want to convince ourselves that variables such as age and sex are
+similar above and below the \$1000 Expected Recovery Amount threshold.
+This is important because we want to be able to conclude that
+differences in the actual recovery amount are due to the higher Recovery
+Strategy and not due to some other difference like age or sex.
+
+The scatter plot of age versus Expected Recovery Amount did not show an
+obvious jump around \$1000. We will be more confident in our conclusions
+if we do statistical analysis examining the average age of the customers
+just above and just below the threshold. We can start by exploring the
+range from \$900 to \$1100.
+
+For determining if there is a difference in the ages just above and just
+below the threshold, we will use the Kruskal-Wallis test which is a
+statistical test that makes no distributional assumptions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Import stats module}
+         \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+         
+         \PY{c+c1}{\PYZsh{} Compute average age just below and above the threshold}
+         \PY{n}{era\PYZus{}900\PYZus{}1100} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1100}\PY{p}{)} \PY{o}{\PYZam{}} 
+                               \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{900}\PY{p}{)}\PY{p}{]}
+         \PY{n}{by\PYZus{}recovery\PYZus{}strategy} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Perform Kruskal\PYZhy{}Wallis test }
+         \PY{n}{Level\PYZus{}0\PYZus{}age} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Level 0 Recovery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Level\PYZus{}1\PYZus{}age} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Level 1 Recovery}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{kruskal}\PY{p}{(}\PY{n}{Level\PYZus{}0\PYZus{}age}\PY{p}{,}\PY{n}{Level\PYZus{}1\PYZus{}age}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{by\PYZus{}recovery\PYZus{}strategy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+KruskalResult(statistic=3.4572342749517513, pvalue=0.06297556896097407)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:}                    count       mean       std   min   25\%   50\%   75\%   max
+         recovery\_strategy                                                          
+         Level 0 Recovery    89.0  27.224719  6.399135  18.0  23.0  26.0  31.0  56.0
+         Level 1 Recovery    94.0  28.755319  5.859807  18.0  24.0  29.0  33.0  43.0
+\end{Verbatim}
+            
+    \subsection{4. Statistical test: sex vs. expected recovery
+amount}\label{statistical-test-sex-vs.-expected-recovery-amount}
+
+We were able to convince ourselves that there is no major jump in the
+average customer age just above and just below the \$1000 threshold by
+doing a statistical test as well as exploring it graphically with a
+scatter plot.
+
+We want to also test that the percentage of customers that are male does
+not jump as well across the \$1000 threshold. We can start by exploring
+the range of \$900 to \$1100 and later adjust this range.
+
+We can examine this question statistically by developing cross-tabs as
+well as doing chi-square tests of the percentage of customers that are
+male vs. female.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Number of customers in each category}
+         \PY{n}{crosstab} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{2000}\PY{p}{)} \PY{o}{\PYZam{}} 
+                                       \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Chi\PYZhy{}square test}
+         \PY{n}{chi2\PYZus{}stat}\PY{p}{,} \PY{n}{p\PYZus{}val}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{ex} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{crosstab}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Due to the p\PYZhy{}value of chi\PYZhy{}square test on sex is }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{p\PYZus{}val}\PY{p}{)}\PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, we can}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{t reject null hypothesis.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{crosstab}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Due to the p-value of chi-square test on sex is 0.3941650543686612, we can't reject null hypothesis.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} sex                Female  Male
+         recovery\_strategy              
+         Level 0 Recovery      108   139
+         Level 1 Recovery      316   354
+\end{Verbatim}
+            
+    \subsection{5. Exploratory graphical analysis: recovery
+amount}\label{exploratory-graphical-analysis-recovery-amount}
+
+We are now reasonably confident that customers just above and just below
+the \$1000 threshold are, on average, similar in terms of their average
+age and the percentage that are male.
+
+It is now time to focus on the key outcome of interest, the actual
+recovery amount.
+
+A first step in examining the relationship between the actual recovery
+amount and the expected recovery amount is to develop a scatter plot
+where we want to focus our attention at the range just below and just
+above the threshold. Specifically, we will develop a scatter plot of
+Expected Recovery Amount (Y) vs. Actual Recovery Amount (X) for Expected
+Recovery Amounts between \$900 to \$1100. This range covers Levels 0 and
+1. A key question is whether or not we see a discontinuity (jump) around
+the \$1000 threshold.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} Scatter plot of Actual Recovery Amount vs. Expected Recovery Amount }
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{900}\PY{p}{,} \PY{l+m+mi}{1100}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2000}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Expected Recovery Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Actual Recovery Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{6. Statistical analysis: recovery
+amount}\label{statistical-analysis-recovery-amount}
+
+Just as we did with age, we can perform statistical tests to see if the
+actual recovery amount has a discontinuity above the \$1000 threshold.
+We are going to do this for two different windows of the expected
+recovery amount \$900 to \$1100 and for a narrow range of \$950 to
+\$1050 to see if our results are consistent.
+
+Again, the statistical test we will use is the Kruskal-Wallis test, a
+test that makes no assumptions about the distribution of the actual
+recovery amount.
+
+We will first compute the average actual recovery amount for those
+customers just below and just above the threshold using a range from
+\$900 to \$1100. Then we will perform a Kruskal-Wallis test to see if
+the actual recovery amounts are different just above and just below the
+threshold. Once we do that, we will repeat these steps for a smaller
+window of \$950 to \$1050.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Compute average actual recovery amount just below and above the threshold}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{by\PYZus{}recovery\PYZus{}strategy}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Perform Kruskal\PYZhy{}Wallis test}
+         \PY{n}{Level\PYZus{}0\PYZus{}actual} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Level 0 Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Level\PYZus{}1\PYZus{}actual} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Level 1 Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{kruskal}\PY{p}{(}\PY{n}{Level\PYZus{}0\PYZus{}actual}\PY{p}{,} \PY{n}{Level\PYZus{}1\PYZus{}actual}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Repeat for a smaller range of \PYZdl{}950 to \PYZdl{}1050}
+         \PY{n}{era\PYZus{}950\PYZus{}1050} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1050}\PY{p}{)} \PY{o}{\PYZam{}} 
+                               \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{950}\PY{p}{)}\PY{p}{]}
+         \PY{n}{Level\PYZus{}0\PYZus{}actual} \PY{o}{=} \PY{n}{era\PYZus{}950\PYZus{}1050}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Level 0 Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Level\PYZus{}1\PYZus{}actual} \PY{o}{=} \PY{n}{era\PYZus{}950\PYZus{}1050}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recovery\PYZus{}strategy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Level 1 Recovery}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{kruskal}\PY{p}{(}\PY{n}{Level\PYZus{}0\PYZus{}actual}\PY{p}{,} \PY{n}{Level\PYZus{}1\PYZus{}actual}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+       recovery\_strategy
+count  Level 0 Recovery       89.000000
+       Level 1 Recovery       94.000000
+mean   Level 0 Recovery      623.017022
+       Level 1 Recovery      955.825551
+std    Level 0 Recovery      211.620859
+       Level 1 Recovery      293.732434
+min    Level 0 Recovery      282.855000
+       Level 1 Recovery      433.199166
+25\%    Level 0 Recovery      491.425000
+       Level 1 Recovery      777.705154
+50\%    Level 0 Recovery      575.435000
+       Level 1 Recovery      907.271525
+75\%    Level 0 Recovery      762.995000
+       Level 1 Recovery     1060.334387
+max    Level 0 Recovery     1225.660000
+       Level 1 Recovery     2053.290126
+dtype: float64
+KruskalResult(statistic=65.37966302528878, pvalue=6.177308752803109e-16)
+KruskalResult(statistic=30.246000000000038, pvalue=3.80575314300276e-08)
+
+    \end{Verbatim}
+
+    \subsection{7. Regression modeling: no
+threshold}\label{regression-modeling-no-threshold}
+
+We now want to take a regression-based approach to estimate the impact
+of the program at the \$1000 threshold using the data that is just above
+and just below the threshold. In order to do that, we will build two
+models. The first model does not have a threshold while the second model
+will include a threshold.
+
+The first model predicts the actual recovery amount (outcome or
+dependent variable) as a function of the expected recovery amount (input
+or independent variable). We expect that there will be a strong positive
+relationship between these two variables.
+
+We will examine the adjusted R-squared to see the percent of variance
+that is explained by the model. In this model, we are not trying to
+represent the threshold but simply trying to see how the variable used
+for assigning the customers (expected recovery amount) relates to the
+outcome variable (actual recovery amount).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Import statsmodels}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+         
+         \PY{c+c1}{\PYZsh{} Define X and y}
+         \PY{n}{X} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Build linear regression model}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print out the model summary statistics}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                              OLS Regression Results                              
+==================================================================================
+Dep. Variable:     actual\_recovery\_amount   R-squared:                       0.261
+Model:                                OLS   Adj. R-squared:                  0.256
+Method:                     Least Squares   F-statistic:                     63.78
+Date:                    Wed, 20 Mar 2019   Prob (F-statistic):           1.56e-13
+Time:                            01:44:08   Log-Likelihood:                -1278.9
+No. Observations:                     183   AIC:                             2562.
+Df Residuals:                         181   BIC:                             2568.
+Df Model:                               1                                         
+Covariance Type:                nonrobust                                         
+============================================================================================
+                               coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------------
+const                    -1978.7597    347.741     -5.690      0.000   -2664.907   -1292.612
+expected\_recovery\_amount     2.7577      0.345      7.986      0.000       2.076       3.439
+==============================================================================
+Omnibus:                       64.493   Durbin-Watson:                   1.777
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):              185.818
+Skew:                           1.463   Prob(JB):                     4.47e-41
+Kurtosis:                       6.977   Cond. No.                     1.80e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.8e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+    \end{Verbatim}
+
+    \subsection{8. Regression modeling: adding true
+threshold}\label{regression-modeling-adding-true-threshold}
+
+From the first model, we see that the regression coefficient is
+statistically significant for the expected recovery amount and the
+adjusted R-squared value was about 0.26. As we saw from the graph, on
+average the actual recovery amount increases as the expected recovery
+amount increases. We could add polynomial terms of expected recovery
+amount (such as the squared value of expected recovery amount) to the
+model but, for the purposes of this practice, let's stick with using
+just the linear term.
+
+The second model adds an indicator of the true threshold to the model.
+If there was no impact of the higher recovery strategy on the actual
+recovery amount, then we would expect that the relationship between the
+expected recovery amount and the actual recovery amount would be
+continuous.
+
+In this case, we know the true threshold is at \$1000.
+
+We will create an indicator variable (either a 0 or a 1) that represents
+whether or not the expected recovery amount was greater than \$1000.
+When we add the true threshold to the model, the regression coefficient
+for the true threshold represents the additional amount recovered due to
+the higher recovery strategy. That is to say, the regression coefficient
+for the true threshold measures the size of the discontinuity for
+customers just above and just below the threshold.
+
+If the higher recovery strategy did help recovery more money, then the
+regression coefficient of the true threshold will be greater than zero.
+If the higher recovery strategy did not help recover more money than the
+regression coefficient will not be statistically significant.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Create indicator (0 or 1) for expected recovery amount \PYZgt{}= \PYZdl{}1000}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator\PYZus{}1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{era\PYZus{}900\PYZus{}1100} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1100}\PY{p}{)} \PY{o}{\PYZam{}} 
+                               \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{900}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Define X and y}
+         \PY{n}{X} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator\PYZus{}1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{era\PYZus{}900\PYZus{}1100}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Build linear regression model}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the model summary}
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                       OLS Regression Results                              
+         ==================================================================================
+         Dep. Variable:     actual\_recovery\_amount   R-squared:                       0.314
+         Model:                                OLS   Adj. R-squared:                  0.307
+         Method:                     Least Squares   F-statistic:                     41.22
+         Date:                    Wed, 20 Mar 2019   Prob (F-statistic):           1.83e-15
+         Time:                            01:46:45   Log-Likelihood:                -1272.0
+         No. Observations:                     183   AIC:                             2550.
+         Df Residuals:                         180   BIC:                             2560.
+         Df Model:                               2                                         
+         Covariance Type:                nonrobust                                         
+         ============================================================================================
+                                        coef    std err          t      P>|t|      [0.025      0.975]
+         --------------------------------------------------------------------------------------------
+         const                        3.3440    626.274      0.005      0.996   -1232.440    1239.128
+         expected\_recovery\_amount     0.6430      0.655      0.981      0.328      -0.650       1.936
+         indicator\_1000             277.6344     74.043      3.750      0.000     131.530     423.739
+         ==============================================================================
+         Omnibus:                       65.977   Durbin-Watson:                   1.906
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):              186.537
+         Skew:                           1.510   Prob(JB):                     3.12e-41
+         Kurtosis:                       6.917   Cond. No.                     3.37e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+         [2] The condition number is large, 3.37e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+    \subsection{9. Regression modeling: adjusting the
+window}\label{regression-modeling-adjusting-the-window}
+
+The regression coefficient for the true threshold was statistically
+significant with an estimated impact of around \$278 and a 95 percent
+confidence interval of \$132 to \$424. This is much larger than the
+incremental cost of running the higher recovery strategy which was \$50
+per customer. At this point, we are feeling reasonably confident that
+the higher recovery strategy is worth the additional costs of the
+program for customers just above and just below the threshold.
+
+Before showing this to our managers, we want to convince ourselves that
+this result wasn't due just to us choosing a window of \$900 to \$1100
+for the expected recovery amount. If the higher recovery strategy really
+had an impact of an extra few hundred dollars, then we should see a
+similar regression coefficient if we choose a slightly bigger or a
+slightly smaller window for the expected recovery amount. Let's repeat
+this analysis for the window of expected recovery amount from \$950 to
+\$1050 to see if we get similar results.
+
+The answer? Whether we use a wide window (\$900 to \$1100) or a narrower
+window (\$950 to \$1050), the incremental recovery amount at the higher
+recovery strategy is much greater than the \$50 per customer it costs
+for the higher recovery strategy. So we can say that the higher recovery
+strategy is worth the extra \$50 per customer that the bank is spending.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Redefine era\PYZus{}950\PYZus{}1050 so the indicator variable is included}
+         \PY{n}{era\PYZus{}950\PYZus{}1050} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{1050}\PY{p}{)} \PY{o}{\PYZam{}} 
+                               \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{950}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Define X and y }
+         \PY{n}{X} \PY{o}{=} \PY{n}{era\PYZus{}950\PYZus{}1050}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expected\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator\PYZus{}1000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         \PY{n}{y} \PY{o}{=} \PY{n}{era\PYZus{}950\PYZus{}1050}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{actual\PYZus{}recovery\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Build linear regression model}
+         \PY{n}{model} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the model summary}
+         \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} <class 'statsmodels.iolib.summary.Summary'>
+         """
+                                       OLS Regression Results                              
+         ==================================================================================
+         Dep. Variable:     actual\_recovery\_amount   R-squared:                       0.283
+         Model:                                OLS   Adj. R-squared:                  0.269
+         Method:                     Least Squares   F-statistic:                     18.99
+         Date:                    Wed, 20 Mar 2019   Prob (F-statistic):           1.12e-07
+         Time:                            01:46:27   Log-Likelihood:                -692.92
+         No. Observations:                      99   AIC:                             1392.
+         Df Residuals:                          96   BIC:                             1400.
+         Df Model:                               2                                         
+         Covariance Type:                nonrobust                                         
+         ============================================================================================
+                                        coef    std err          t      P>|t|      [0.025      0.975]
+         --------------------------------------------------------------------------------------------
+         const                     -279.5243   1840.707     -0.152      0.880   -3933.298    3374.250
+         expected\_recovery\_amount     0.9189      1.886      0.487      0.627      -2.825       4.663
+         indicator\_1000             286.5337    111.352      2.573      0.012      65.502     507.566
+         ==============================================================================
+         Omnibus:                       39.302   Durbin-Watson:                   1.955
+         Prob(Omnibus):                  0.000   Jarque-Bera (JB):               82.258
+         Skew:                           1.564   Prob(JB):                     1.37e-18
+         Kurtosis:                       6.186   Cond. No.                     6.81e+04
+         ==============================================================================
+         
+         Warnings:
+         [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+         [2] The condition number is large, 6.81e+04. This might indicate that there are
+         strong multicollinearity or other numerical problems.
+         """
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

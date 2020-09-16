@@ -1,0 +1,777 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{notebook - 01}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{1. Import Python libraries}\label{import-python-libraries}
+
+Can a machine identify a bee as a honey bee or a bumble bee? These bees
+have different behaviors and appearances, but given the variety of
+backgrounds, positions, and image resolutions, it can be a challenge for
+machines to tell them apart.
+
+Being able to identify bee species from images is a task that ultimately
+would allow researchers to more quickly and effectively collect field
+data. Pollinating bees have critical roles in both ecology and
+agriculture, and diseases like colony collapse disorder threaten these
+species. Identifying different species of bees in the wild means that we
+can better understand the prevalence and growth of these important
+insects.
+
+After loading and pre-processing images, this notebook walks through
+building a model that can automatically detect honey bees and bumble
+bees.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{c+c1}{\PYZsh{} used to change filepaths}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{} import Image from PIL}
+         \PY{k+kn}{from} \PY{n+nn}{PIL} \PY{k}{import} \PY{n}{Image}
+         \PY{k+kn}{from} \PY{n+nn}{skimage}\PY{n+nn}{.}\PY{n+nn}{feature} \PY{k}{import} \PY{n}{hog}
+         \PY{k+kn}{from} \PY{n+nn}{skimage}\PY{n+nn}{.}\PY{n+nn}{color} \PY{k}{import} \PY{n}{rgb2grey}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+         
+         \PY{c+c1}{\PYZsh{} import train\PYZus{}test\PYZus{}split from sklearn\PYZsq{}s model selection module}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         
+         \PY{c+c1}{\PYZsh{} import SVC from sklearn\PYZsq{}s svm module}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVC}
+         
+         \PY{c+c1}{\PYZsh{} import accuracy\PYZus{}score from sklearn\PYZsq{}s metrics module}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{roc\PYZus{}curve}\PY{p}{,} \PY{n}{auc}\PY{p}{,} \PY{n}{accuracy\PYZus{}score}
+\end{Verbatim}
+
+
+    \subsection{2. Display image of each bee
+type}\label{display-image-of-each-bee-type}
+
+Now that we have all of our imports ready, it is time to look at some
+images. We will load our labels.csv file into a dataframe called labels,
+where the index is the image name (e.g. an index of 1036 refers to an
+image named 1036.jpg) and the genus column tells us the bee type. genus
+takes the value of either 0.0 (Apis or honey bee) or 1.0 (Bombus or
+bumble bee).
+
+The function get\_image converts an index value from the dataframe into
+a file path where the image is located, opens the image using the Image
+object in Pillow, and then returns the image as a numpy array.
+
+We'll use this function to load the sixth Apis image and then the sixth
+Bombus image in the dataframe.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{} load the labels using pandas}
+         \PY{n}{labels} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{datasets/labels.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show the first five rows of the dataframe using head}
+         \PY{n}{display}\PY{p}{(}\PY{n}{labels}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}image}\PY{p}{(}\PY{n}{row\PYZus{}id}\PY{p}{,} \PY{n}{root}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{datasets/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Converts an image number into the file path where the image is located, }
+         \PY{l+s+sd}{    opens the image, and returns the image as a numpy array.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{filename} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.jpg}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{row\PYZus{}id}\PY{p}{)}
+             \PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{root}\PY{p}{,} \PY{n}{filename}\PY{p}{)}
+             \PY{n}{img} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+             \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} subset the dataframe to just Apis (genus is 0.0) get the value of the sixth item in the index}
+         \PY{n}{apis\PYZus{}row} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{labels}\PY{o}{.}\PY{n}{genus} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} show the corresponding image of an Apis}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{get\PYZus{}image}\PY{p}{(}\PY{n}{apis\PYZus{}row}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} subset the dataframe to just Bombus (genus is 1.0) get the value of the sixth item in the index}
+         \PY{n}{bombus\PYZus{}row} \PY{o}{=} \PY{n}{labels}\PY{p}{[}\PY{n}{labels}\PY{o}{.}\PY{n}{genus} \PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} show the corresponding image of a Bombus}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{get\PYZus{}image}\PY{p}{(}\PY{n}{bombus\PYZus{}row}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+      genus
+id         
+520     1.0
+3800    1.0
+3289    1.0
+2695    1.0
+4922    1.0
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3. Image manipulation with
+rgb2grey}\label{image-manipulation-with-rgb2grey}
+
+scikit-image has a number of image processing functions built into the
+library, for example, converting an image to greyscale. The rgb2grey
+function computes the luminance of an RGB image using the following
+formula Y = 0.2125 R + 0.7154 G + 0.0721 B.
+
+Image data is represented as a matrix, where the depth is the number of
+channels. An RGB image has three channels (red, green, and blue) whereas
+the returned greyscale image has only one channel. Accordingly, the
+original color image has the dimensions 100x100x3 but after calling
+rgb2grey, the resulting greyscale image has only one channel, making the
+dimensions 100x100x1.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{c+c1}{\PYZsh{} load a bombus image using our get\PYZus{}image function and bombus\PYZus{}row from the previous cell}
+         \PY{n}{bombus} \PY{o}{=} \PY{n}{get\PYZus{}image}\PY{p}{(}\PY{n}{bombus\PYZus{}row}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print the shape of the bombus image}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Color bombus image has shape: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{bombus}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} convert the bombus image to greyscale}
+         \PY{n}{grey\PYZus{}bombus} \PY{o}{=} \PY{n}{rgb2grey}\PY{p}{(}\PY{n}{bombus}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show the greyscale image}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{grey\PYZus{}bombus}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{mpl}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} greyscale bombus image only has one channel}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Greyscale bombus image has shape:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{grey\PYZus{}bombus}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Color bombus image has shape: (100, 100, 3)
+Greyscale bombus image has shape:(100, 100)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{4. Histogram of oriented
+gradients}\label{histogram-of-oriented-gradients}
+
+Now we need to turn these images into something that a machine learning
+algorithm can understand. Traditional computer vision techniques have
+relied on mathematical transforms to turn images into useful features.
+For example, you may want to detect edges of objects in an image,
+increase the contrast, or filter out particular colors.
+
+We've got a matrix of pixel values, but those don't contain enough
+interesting information on their own for most algorithms. We need to
+help the algorithms along by picking out some of the salient features
+for them using the histogram of oriented gradients (HOG) descriptor. The
+idea behind HOG is that an object's shape within an image can be
+inferred by its edges, and a way to identify edges is by looking at the
+direction of intensity gradients (i.e. changes in luminescence).
+
+An image is divided in a grid fashion into cells, and for the pixels
+within each cell, a histogram of gradient directions is compiled. To
+improve invariance to highlights and shadows in an image, cells are
+block normalized, meaning an intensity value is calculated for a larger
+region of an image called a block and used to contrast normalize all
+cell-level histograms within each block. The HOG feature vector for the
+image is the concatenation of these cell-level histograms.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{c+c1}{\PYZsh{} run HOG using our greyscale bombus image}
+         \PY{n}{hog\PYZus{}features}\PY{p}{,} \PY{n}{hog\PYZus{}image} \PY{o}{=} \PY{n}{hog}\PY{p}{(}\PY{n}{grey\PYZus{}bombus}\PY{p}{,}
+                                       \PY{n}{visualize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                                       \PY{n}{block\PYZus{}norm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2\PYZhy{}Hys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                       \PY{n}{pixels\PYZus{}per\PYZus{}cell}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} show our hog\PYZus{}image with a grey colormap}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{hog\PYZus{}image}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{n}{mpl}\PY{o}{.}\PY{n}{cm}\PY{o}{.}\PY{n}{gray}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}99}]:} <matplotlib.image.AxesImage at 0x7f138648e630>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{5. Create image features and flatten into a single
+row}\label{create-image-features-and-flatten-into-a-single-row}
+
+Algorithms require data to be in a format where rows correspond to
+images and columns correspond to features. This means that all the
+information for a given image needs to be contained in a single row.
+
+We want to provide our model with the raw pixel values from our images
+as well as the HOG features we just calculated. To do this, we will
+write a function called create\_features that combines these two sets of
+features by flattening the three-dimensional array into a
+one-dimensional (flat) array.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}features}\PY{p}{(}\PY{n}{img}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} flatten three channel color image}
+              \PY{n}{color\PYZus{}features} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} convert image to greyscale}
+              \PY{n}{grey\PYZus{}image} \PY{o}{=} \PY{n}{rgb2grey}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} get HOG features from greyscale image}
+              \PY{n}{hog\PYZus{}features} \PY{o}{=} \PY{n}{hog}\PY{p}{(}\PY{n}{grey\PYZus{}image}\PY{p}{,} \PY{n}{block\PYZus{}norm}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{L2\PYZhy{}Hys}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{pixels\PYZus{}per\PYZus{}cell}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} combine color and hog features into a single array}
+              \PY{n}{flat\PYZus{}features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{(}\PY{n}{color\PYZus{}features}\PY{p}{,} \PY{n}{hog\PYZus{}features}\PY{p}{)}\PY{p}{)}
+              \PY{k}{return} \PY{n}{flat\PYZus{}features}
+          
+          \PY{n}{bombus\PYZus{}features} \PY{o}{=} \PY{n}{create\PYZus{}features}\PY{p}{(}\PY{n}{bombus}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} print shape of bombus\PYZus{}features}
+          \PY{n}{bombus\PYZus{}features}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}101}]:} (31296,)
+\end{Verbatim}
+            
+    \subsection{6. Loop over images to
+preprocess}\label{loop-over-images-to-preprocess}
+
+Above we generated a flattened features array for the bombus image. Now
+it's time to loop over all of our images. We will create features for
+each image and then stack the flattened features arrays into a big
+matrix we can pass into our model.
+
+In the create\_feature\_matrix function, we'll do the following:
+
+Load an image
+
+Generate a row of features using the create\_features function above
+
+Stack the rows into a features matrix
+
+In the resulting features matrix, rows correspond to images and columns
+to features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{k}{def} \PY{n+nf}{create\PYZus{}feature\PYZus{}matrix}\PY{p}{(}\PY{n}{label\PYZus{}dataframe}\PY{p}{)}\PY{p}{:}
+              \PY{n}{features\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              
+              \PY{k}{for} \PY{n}{img\PYZus{}id} \PY{o+ow}{in} \PY{n}{label\PYZus{}dataframe}\PY{o}{.}\PY{n}{index}\PY{p}{:}
+                  \PY{c+c1}{\PYZsh{} load image}
+                  \PY{n}{img} \PY{o}{=} \PY{n}{get\PYZus{}image}\PY{p}{(}\PY{n}{img\PYZus{}id}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{} get features for image}
+                  \PY{n}{image\PYZus{}features} \PY{o}{=} \PY{n}{create\PYZus{}features}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+                  \PY{n}{features\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{image\PYZus{}features}\PY{p}{)}
+                  
+              \PY{c+c1}{\PYZsh{} convert list of arrays into a matrix}
+              \PY{n}{feature\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{features\PYZus{}list}\PY{p}{)}
+              \PY{k}{return} \PY{n}{feature\PYZus{}matrix}
+          
+          \PY{c+c1}{\PYZsh{} run create\PYZus{}feature\PYZus{}matrix on our dataframe of images}
+          \PY{n}{feature\PYZus{}matrix} \PY{o}{=} \PY{n}{create\PYZus{}feature\PYZus{}matrix}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{7. Scale feature matrix +
+PCA}\label{scale-feature-matrix-pca}
+
+Our features aren't quite done yet. Many machine learning methods are
+built to work best with data that has a mean of 0 and unit variance.
+Luckily, scikit-learn provides a simple way to rescale your data to work
+well using StandardScaler. They've got a more thorough explanation of
+why that is in the linked docs.
+
+Remember also that we have over 31,000 features for each image and only
+500 images total. To use an SVM, our model of choice, we also need to
+reduce the number of features we have using principal component analysis
+(PCA).
+
+PCA is a way of linearly transforming the data such that most of the
+information in the data is contained within a smaller number of features
+called components. Below is a visual example from an image dataset
+containing handwritten numbers. The image on the left is the original
+image with 784 components. We can see that the image on the right (post
+PCA) captures the shape of the number quite effectively even with only
+59 components.
+
+In our case, we will keep 500 components. This means our feature matrix
+will only have 500 columns rather than the original 31,296.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{c+c1}{\PYZsh{} get shape of feature matrix}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feature matrix shape is:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{feature\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} define standard scaler}
+          \PY{n}{ss} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} run this on our feature matrix}
+          \PY{n}{bees\PYZus{}stand} \PY{o}{=} \PY{n}{ss}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{feature\PYZus{}matrix}\PY{p}{)}
+          
+          \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} use fit\PYZus{}transform to run PCA on our standardized matrix}
+          \PY{n}{bees\PYZus{}pca} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{bees\PYZus{}stand}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} look at new shape}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PCA matrix shape is:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{bees\PYZus{}pca}\PY{o}{.}\PY{n}{shape}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Feature matrix shape is:(500, 31296) 
+PCA matrix shape is:(500, 500)
+
+    \end{Verbatim}
+
+    \subsection{8. Split into train and test
+sets}\label{split-into-train-and-test-sets}
+
+Now we need to convert our data into train and test sets. We'll use 70\%
+of images as our training data and test our model on the remaining 30\%.
+Scikit-learn's train\_test\_split function makes this easy.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{bees\PYZus{}pca}\PY{p}{,}
+                                                              \PY{n}{labels}\PY{o}{.}\PY{n}{genus}\PY{o}{.}\PY{n}{values}\PY{p}{,}
+                                                              \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,}
+                                                              \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1234123}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} look at the distrubution of labels in the train set}
+          \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:} 0.0    175
+          1.0    175
+          dtype: int64
+\end{Verbatim}
+            
+    \subsection{9. Train model}\label{train-model}
+
+It's finally time to build our model! We'll use a support vector machine
+(SVM), a type of supervised machine learning model used for regression,
+classification, and outlier detection." An SVM model is a representation
+of the examples as points in space, mapped so that the examples of the
+separate categories are divided by a clear gap that is as wide as
+possible. New examples are then mapped into that same space and
+predicted to belong to a category based on which side of the gap they
+fall."
+
+Here's a visualization of the maximum margin separating two classes
+using an SVM classifier with a linear kernel.
+
+Since we have a classification task -\/- honey or bumble bee -\/- we
+will use the support vector classifier (SVC), a type of SVM. We imported
+this class at the top of the notebook.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{c+c1}{\PYZsh{} define support vector classifier}
+          \PY{n}{svm} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{probability}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} fit model}
+          \PY{n}{svm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} SVC(C=1.0, cache\_size=200, class\_weight=None, coef0=0.0,
+            decision\_function\_shape='ovr', degree=3, gamma='auto', kernel='linear',
+            max\_iter=-1, probability=True, random\_state=42, shrinking=True,
+            tol=0.001, verbose=False)
+\end{Verbatim}
+            
+    \subsection{10. Score model}\label{score-model}
+
+Now we'll use our trained model to generate predictions for our test
+data. To see how well our model did, we'll calculate the accuracy by
+comparing our predicted labels for the test set with the true labels in
+the test set. Accuracy is the number of correct predictions divided by
+the total number of predictions. Scikit-learn's accuracy\_score function
+will do math for us. Sometimes accuracy can be misleading, but since we
+have an equal number of honey and bumble bees, it is a useful metric for
+this problem.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{} generate predictions}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} calculate accuracy}
+          \PY{n}{accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model accuracy is: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model accuracy is:  0.68
+
+    \end{Verbatim}
+
+    \subsection{11. ROC curve + AUC}\label{roc-curve-auc}
+
+Above, we used svm.predict to predict either 0.0 or 1.0 for each image
+in X\_test. Now, we'll use svm.predict\_proba to get the probability
+that each class is the true label. For example, predict\_proba returns
+{[}0.46195176, 0.53804824{]} for the first image, meaning there is a
+46\% chance the bee in the image is an Apis (0.0) and a 53\% chance the
+bee in the image is a Bombus (1.0). Note that the two probabilities for
+each image always sum to 1.
+
+Using the default settings, probabilities of 0.5 or above are assigned a
+class label of 1.0 and those below are assigned a 0.0. However, this
+threshold can be adjusted. The receiver operating characteristic curve
+(ROC curve) plots the false positive rate and true positive rate at
+different thresholds. ROC curves are judged visually by how close they
+are to the upper lefthand corner.
+
+The area under the curve (AUC) is also calculated, where 1 means every
+predicted label was correct. Generally, the worst score for AUC is 0.5,
+which is the performance of a model that randomly guesses. See the
+scikit-learn documentation for more resources and examples on ROC curves
+and AUC.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{c+c1}{\PYZsh{} predict probabilities for X\PYZus{}test using predict\PYZus{}proba}
+          \PY{n}{probabilities} \PY{o}{=} \PY{n}{svm}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} select the probabilities for label 1.0}
+          \PY{n}{y\PYZus{}proba} \PY{o}{=} \PY{p}{[}\PY{n}{t}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{t} \PY{o+ow}{in} \PY{n}{probabilities}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} calculate false positive rate and true positive rate at different thresholds}
+          \PY{n}{false\PYZus{}positive\PYZus{}rate}\PY{p}{,} \PY{n}{true\PYZus{}positive\PYZus{}rate}\PY{p}{,} \PY{n}{thresholds} \PY{o}{=} \PY{n}{roc\PYZus{}curve}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}proba}\PY{p}{,} \PY{n}{pos\PYZus{}label}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} calculate AUC}
+          \PY{n}{roc\PYZus{}auc} \PY{o}{=} \PY{n}{auc}\PY{p}{(}\PY{n}{false\PYZus{}positive\PYZus{}rate}\PY{p}{,} \PY{n}{true\PYZus{}positive\PYZus{}rate}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Receiver Operating Characteristic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} plot the false positive rate on the x axis and the true positive rate on the y axis}
+          \PY{n}{roc\PYZus{}plot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{false\PYZus{}positive\PYZus{}rate}\PY{p}{,}
+                              \PY{n}{y}\PY{o}{=}\PY{n}{true\PYZus{}positive\PYZus{}rate}\PY{p}{,}
+                              \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUC = }\PY{l+s+si}{\PYZob{}:0.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{roc\PYZus{}auc}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{ls}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{True Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{False Positive Rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.         0.         0.01333333 0.01333333 0.02666667 0.02666667
+ 0.04       0.04       0.05333333 0.05333333 0.08       0.08
+ 0.09333333 0.09333333 0.13333333 0.13333333 0.14666667 0.14666667
+ 0.16       0.16       0.17333333 0.17333333 0.18666667 0.18666667
+ 0.2        0.2        0.22666667 0.22666667 0.24       0.24
+ 0.26666667 0.26666667 0.28       0.28       0.29333333 0.30666667
+ 0.30666667 0.32       0.32       0.37333333 0.37333333 0.38666667
+ 0.38666667 0.49333333 0.49333333 0.52       0.52       0.57333333
+ 0.57333333 0.6        0.6        0.62666667 0.62666667 0.65333333
+ 0.65333333 0.66666667 0.66666667 0.68       0.68       0.76
+ 0.76       0.81333333 0.81333333 0.84       0.84       0.96
+ 0.96       0.98666667 0.98666667 1.        ]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

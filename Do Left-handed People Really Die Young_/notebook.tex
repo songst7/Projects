@@ -1,0 +1,701 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{notebook}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsection{1. Where are the old left-handed
+people?}\label{where-are-the-old-left-handed-people}
+
+Barack Obama is left-handed. So are Bill Gates and Oprah Winfrey; so
+were Babe Ruth and Marie Curie. A 1991 study reported that left-handed
+people die on average nine years earlier than right-handed people. Nine
+years! Could this really be true?
+
+In this notebook, we will explore this phenomenon using age distribution
+data to see if we can reproduce a difference in average age at death
+purely from the changing rates of left-handedness over time, refuting
+the claim of early death for left-handers. This notebook uses pandas and
+Bayesian statistics to analyze the probability of being a certain age at
+death given that you are reported as left-handed or right-handed.
+
+A National Geographic survey in 1986 resulted in over a million
+responses that included age, sex, and hand preference for throwing and
+writing. Researchers Avery Gilbert and Charles Wysocki analyzed this
+data and noticed that rates of left-handedness were around 13\% for
+people younger than 40 but decreased with age to about 5\% by the age of
+80. They concluded based on analysis of a subgroup of people who throw
+left-handed but write right-handed that this age-dependence was
+primarily due to changing social acceptability of left-handedness. This
+means that the rates aren't a factor of age specifically but rather of
+the year you were born, and if the same study was done today, we should
+expect a shifted version of the same distribution as a function of age.
+Ultimately, we'll see what effect this changing rate has on the apparent
+mean age of death of left-handed people, but let's start by plotting the
+rates of left-handedness as a function of age.
+
+This notebook uses two datasets: death distribution data for the United
+States from the year 1999 (source website here) and rates of
+left-handedness digitized from a figure in this 1992 paper by Gilbert
+and Wysocki.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} import libraries}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{c+c1}{\PYZsh{} load the data}
+         \PY{n}{data\PYZus{}url\PYZus{}1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://gist.githubusercontent.com/mbonsma/8da0990b71ba9a09f7de395574e54df1/raw/aec88b30af87fad8d45da7e774223f91dad09e88/lh\PYZus{}data.csv}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{lefthanded\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{data\PYZus{}url\PYZus{}1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot male and female left\PYZhy{}handedness rates vs. age}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} create figure and axis objects}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{lefthanded\PYZus{}data}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} plot \PYZdq{}Female\PYZdq{} vs. \PYZdq{}Age\PYZdq{}}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{lefthanded\PYZus{}data}\PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} plot \PYZdq{}Male\PYZdq{} vs. \PYZdq{}Age\PYZdq{}}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} add a legend}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Left\PYZhy{}handedness Peference Rite}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_1_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{2. Rates of left-handedness over
+time}\label{rates-of-left-handedness-over-time}
+
+Let's convert this data into a plot of the rates of left-handedness as a
+function of the year of birth, and average over male and female to get a
+single rate for both sexes.
+
+Since the study was done in 1986, the data after this conversion will be
+the percentage of people alive in 1986 who are left-handed as a function
+of the year they were born.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} create a new column for birth year of each age}
+         \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Birth\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1986} \PY{o}{\PYZhy{}} \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} create a new column for the average of male and female}
+         \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}lh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Male}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create a plot of the \PYZsq{}Mean\PYZus{}lh\PYZsq{} column vs. \PYZsq{}Birth\PYZus{}year\PYZsq{}}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Birth\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}lh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{lefthanded\PYZus{}data}\PY{p}{)} \PY{c+c1}{\PYZsh{} plot \PYZsq{}Mean\PYZus{}lh\PYZsq{} vs. \PYZsq{}Birth\PYZus{}year\PYZsq{}}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year of Birth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} set the x label for the plot}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean rate of left\PYZhy{}handedness}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} set the y label for the plot}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{3. Applying Bayes' rule}\label{applying-bayes-rule}
+
+The probability of dying at a certain age given that you're left-handed
+is not equal to the probability of being left-handed given that you died
+at a certain age. This inequality is why we need Bayes' theorem, a
+statement about conditional probability which allows us to update our
+beliefs after seeing evidence.
+
+We want to calculate the probability of dying at age A given that you're
+left-handed. Let's write this in shorthand as P(A \textbar{} LH). We
+also want the same quantity for right-handers: P(A \textbar{} RH).
+
+Here's Bayes' theorem for the two events we care about: left-handedness
+(LH) and dying at age A.
+
+\[P(A | LH) = \frac{P(LH|A) P(A)}{P(LH)}\]
+
+where
+
+\[P(LH | A) \text{ is the probability that you are left-handed given that you died at age A}\]
+
+\[P(A) \text{ is the overall probability of dying at age A}\]
+
+and
+
+\[P(LH) \text{ is the overall probability of being left-handed}\]
+
+We will now calculate each of these three quantities, beginning with
+P(LH \textbar{} A).
+
+To calculate P(LH \textbar{} A) for ages that might fall outside the
+original data, we will need to extrapolate the data to earlier and later
+years. Since the rates flatten out in the early 1900s and late 1900s,
+we'll use a few points at each end and take the mean to extrapolate the
+rates on each end. The number of points used for this is arbitrary, but
+we'll pick 10 since the data looks flat-ish until about 1910.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} import library}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{c+c1}{\PYZsh{} create a function for P(LH | A)}
+         \PY{k}{def} \PY{n+nf}{P\PYZus{}lh\PYZus{}given\PYZus{}A}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{,} \PY{n}{study\PYZus{}year} \PY{o}{=} \PY{l+m+mi}{1990}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} P(Left\PYZhy{}handed | ages of death), calculated based on the reported rates of left\PYZhy{}handedness.}
+         \PY{l+s+sd}{    Inputs: numpy array of ages of death, study\PYZus{}year}
+         \PY{l+s+sd}{    Returns: probability of left\PYZhy{}handedness given that subjects died in `study\PYZus{}year` at ages `ages\PYZus{}of\PYZus{}death` \PYZdq{}\PYZdq{}\PYZdq{}}
+             
+             \PY{c+c1}{\PYZsh{} Use the mean of the 10 last and 10 first points for left\PYZhy{}handedness rates before and after the start }
+             \PY{n}{early\PYZus{}1900s\PYZus{}rate} \PY{o}{=} \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}lh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{n}{late\PYZus{}1900s\PYZus{}rate} \PY{o}{=} \PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}lh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+             \PY{n}{middle\PYZus{}rates} \PY{o}{=} \PY{n}{lefthanded\PYZus{}data}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{lefthanded\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Birth\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{study\PYZus{}year} \PY{o}{\PYZhy{}} \PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}lh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{n}{youngest\PYZus{}age} \PY{o}{=} \PY{n}{study\PYZus{}year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1986} \PY{o}{+} \PY{l+m+mi}{10} \PY{c+c1}{\PYZsh{} the youngest age is 10}
+             \PY{n}{oldest\PYZus{}age} \PY{o}{=} \PY{n}{study\PYZus{}year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1986} \PY{o}{+} \PY{l+m+mi}{86} \PY{c+c1}{\PYZsh{} the oldest age is 86}
+             
+             \PY{n}{P\PYZus{}return} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{o}{.}\PY{n}{shape}\PY{p}{)} \PY{c+c1}{\PYZsh{} create an empty array to store the results}
+             \PY{c+c1}{\PYZsh{} extract rate of left\PYZhy{}handedness for people of ages \PYZsq{}ages\PYZus{}of\PYZus{}death\PYZsq{}}
+             \PY{n}{P\PYZus{}return}\PY{p}{[}\PY{n}{ages\PYZus{}of\PYZus{}death} \PY{o}{\PYZgt{}} \PY{n}{oldest\PYZus{}age}\PY{p}{]} \PY{o}{=} \PY{n}{early\PYZus{}1900s\PYZus{}rate} \PY{o}{/} \PY{l+m+mi}{100}
+             \PY{n}{P\PYZus{}return}\PY{p}{[}\PY{n}{ages\PYZus{}of\PYZus{}death} \PY{o}{\PYZlt{}} \PY{n}{youngest\PYZus{}age}\PY{p}{]} \PY{o}{=} \PY{n}{late\PYZus{}1900s\PYZus{}rate} \PY{o}{/} \PY{l+m+mi}{100}
+             \PY{n}{P\PYZus{}return}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{logical\PYZus{}and}\PY{p}{(}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{oldest\PYZus{}age}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{youngest\PYZus{}age}\PY{p}{)}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{middle\PYZus{}rates} \PY{o}{/} \PY{l+m+mi}{100}
+             
+             \PY{k}{return} \PY{n}{P\PYZus{}return}
+\end{Verbatim}
+
+
+    \subsection{4. When do people normally
+die?}\label{when-do-people-normally-die}
+
+To estimate the probability of living to an age A, we can use data that
+gives the number of people who died in a given year and how old they
+were to create a distribution of ages of death. If we normalize the
+numbers to the total number of people who died, we can think of this
+data as a probability distribution that gives the probability of dying
+at age A. The data we'll use for this is from the entire US for the year
+1999 - the closest I could find for the time range we're interested in.
+
+In this block, we'll load in the death distribution data and plot it.
+The first column is the age, and the other columns are the number of
+people who died at that age.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} Death distribution data for the United States in 1999}
+         \PY{n}{data\PYZus{}url\PYZus{}2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://gist.githubusercontent.com/mbonsma/2f4076aab6820ca1807f4e29f75f18ec/raw/62f3ec07514c7e31f5979beeca86f19991540796/cdc\PYZus{}vs00199\PYZus{}table310.tsv}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{c+c1}{\PYZsh{} load death distribution data}
+         \PY{n}{death\PYZus{}distribution\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{data\PYZus{}url\PYZus{}2}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} drop NaN values from the `Both Sexes` column}
+         \PY{n}{death\PYZus{}distribution\PYZus{}data} \PY{o}{=} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} plot number of people who died as a function of age}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} plot \PYZsq{}Both Sexes\PYZsq{} vs. \PYZsq{}Age\PYZsq{}}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of people dead in both sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{5. The overall probability of
+left-handedness}\label{the-overall-probability-of-left-handedness}
+
+In the previous code block we loaded data to give us P(A), and now we
+need P(LH). P(LH) is the probability that a person who died in our
+particular study year is left-handed, assuming we know nothing else
+about them. This is the average left-handedness in the population of
+deceased people, and we can calculate it by summing up all of the
+left-handedness probabilities for each age, weighted with the number of
+deceased people at each age, then divided by the total number of
+deceased people to get a probability. In equation form, this is what
+we're calculating, where N(A) is the number of people who died at age A
+(given by the dataframe death\_distribution\_data):
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{P\PYZus{}lh}\PY{p}{(}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year} \PY{o}{=} \PY{l+m+mi}{1990}\PY{p}{)}\PY{p}{:} \PY{c+c1}{\PYZsh{} sum over P\PYZus{}lh for each age group}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Overall probability of being left\PYZhy{}handed if you died in the study year}
+         \PY{l+s+sd}{    Input: dataframe of death distribution data, study year}
+         \PY{l+s+sd}{    Output: P(LH), a single floating point number \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{p\PYZus{}list} \PY{o}{=} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{P\PYZus{}lh\PYZus{}given\PYZus{}A}\PY{p}{(}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{p}{)} \PY{c+c1}{\PYZsh{} multiply number of dead people by P\PYZus{}lh\PYZus{}given\PYZus{}A}
+             \PY{n}{p} \PY{o}{=}  \PY{n}{p\PYZus{}list}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} calculate the sum of p\PYZus{}list}
+             \PY{k}{return} \PY{n}{p}\PY{o}{/}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} normalize to total number of people (sum of death\PYZus{}distribution\PYZus{}data[\PYZsq{}Both Sexes\PYZsq{}])}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{P\PYZus{}lh}\PY{p}{(}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{o}{=}\PY{l+m+mi}{1990}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.07766387615350638
+
+    \end{Verbatim}
+
+    \subsection{6. Putting it all together: dying while left-handed
+(i)}\label{putting-it-all-together-dying-while-left-handed-i}
+
+Now we have the means of calculating all three quantities we need: P(A),
+P(LH), and P(LH \textbar{} A). We can combine all three using Bayes'
+rule to get P(A \textbar{} LH), the probability of being age A at death
+(in the study year) given that you're left-handed. To make this answer
+meaningful, though, we also want to compare it to P(A \textbar{} RH),
+the probability of being age A at death given that you're right-handed.
+
+We're calculating the following quantity twice, once for left-handers
+and once for right-handers.
+
+\[P(A | LH) = \frac{P(LH|A) P(A)}{P(LH)}\]
+
+First, for left-handers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{P\PYZus{}A\PYZus{}given\PYZus{}lh}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year} \PY{o}{=} \PY{l+m+mi}{1990}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} The overall probability of being a particular `age\PYZus{}of\PYZus{}death` given that you\PYZsq{}re left\PYZhy{}handed \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{P\PYZus{}A} \PY{o}{=} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{]} \PY{o}{/} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{P\PYZus{}left} \PY{o}{=} \PY{n}{P\PYZus{}lh}\PY{p}{(}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{p}{)} \PY{c+c1}{\PYZsh{} use P\PYZus{}lh function to get probability of left\PYZhy{}handedness overall}
+             \PY{n}{P\PYZus{}lh\PYZus{}A} \PY{o}{=} \PY{n}{P\PYZus{}lh\PYZus{}given\PYZus{}A}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{p}{)} \PY{c+c1}{\PYZsh{} use P\PYZus{}lh\PYZus{}given\PYZus{}A to get probability of left\PYZhy{}handedness for a certain age}
+             \PY{k}{return} \PY{n}{P\PYZus{}lh\PYZus{}A}\PY{o}{*}\PY{n}{P\PYZus{}A}\PY{o}{/}\PY{n}{P\PYZus{}left}
+\end{Verbatim}
+
+
+    \subsection{7. Putting it all together: dying while left-handed
+(ii)}\label{putting-it-all-together-dying-while-left-handed-ii}
+
+And now for right-handers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k}{def} \PY{n+nf}{P\PYZus{}A\PYZus{}given\PYZus{}rh}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year} \PY{o}{=} \PY{l+m+mi}{1990}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} The overall probability of being a particular }
+         \PY{l+s+sd}{        `age\PYZus{}of\PYZus{}death` given that you\PYZsq{}re right\PYZhy{}handed \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{P\PYZus{}A} \PY{o}{=} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{]} \PY{o}{/} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Both Sexes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+             \PY{n}{P\PYZus{}right} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{P\PYZus{}lh}\PY{p}{(}\PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{p}{)} \PY{c+c1}{\PYZsh{} either you\PYZsq{}re left\PYZhy{}handed or right\PYZhy{}handed, so P\PYZus{}right = 1 \PYZhy{} P\PYZus{}left}
+             \PY{n}{P\PYZus{}rh\PYZus{}A} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{P\PYZus{}lh\PYZus{}given\PYZus{}A}\PY{p}{(}\PY{n}{ages\PYZus{}of\PYZus{}death}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{p}{)} \PY{c+c1}{\PYZsh{} P\PYZus{}rh\PYZus{}A = 1 \PYZhy{} P\PYZus{}lh\PYZus{}A }
+             \PY{k}{return} \PY{n}{P\PYZus{}rh\PYZus{}A}\PY{o}{*}\PY{n}{P\PYZus{}A}\PY{o}{/}\PY{n}{P\PYZus{}right}
+\end{Verbatim}
+
+
+    \subsection{8. Plotting the distributions of conditional
+probabilities}\label{plotting-the-distributions-of-conditional-probabilities}
+
+Now that we have functions to calculate the probability of being age A
+at death given that you're left-handed or right-handed, let's plot these
+probabilities for a range of ages of death from 6 to 120.
+
+Notice that the left-handed distribution has a bump below age 70: of the
+pool of deceased people, left-handed people are more likely to be
+younger.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{ages} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{115}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} make a list of ages of death to plot}
+         
+         \PY{c+c1}{\PYZsh{} calculate the probability of being left\PYZhy{} or right\PYZhy{}handed for each }
+         \PY{n}{left\PYZus{}handed\PYZus{}probability} \PY{o}{=} \PY{n}{P\PYZus{}A\PYZus{}given\PYZus{}lh}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{)}
+         \PY{n}{right\PYZus{}handed\PYZus{}probability} \PY{o}{=} \PY{n}{P\PYZus{}A\PYZus{}given\PYZus{}rh}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} create a plot of the two probabilities vs. age}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} create figure and axis objects}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{left\PYZus{}handed\PYZus{}probability}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Left\PYZhy{}handed}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{right\PYZus{}handed\PYZus{}probability}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Right\PYZhy{}handed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} add a legend}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Age at death}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Probability of being age A at death}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{9. Moment of truth: age of left and right-handers at
+death}\label{moment-of-truth-age-of-left-and-right-handers-at-death}
+
+Finally, let's compare our results with the original study that found
+that left-handed people were nine years younger at death on average. We
+can do this by calculating the mean of these probability distributions
+in the same way we calculated P(LH) earlier, weighting the probability
+distribution by age and summing over the result.
+
+\[\text{Average age of left-handed people at death} = \sum_A A P(A | LH)\]
+
+\[\text{Average age of right-handed people at death} = \sum_A A P(A | RH)\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} calculate average ages for left\PYZhy{}handed and right\PYZhy{}handed groups}
+         \PY{c+c1}{\PYZsh{} use np.array so that two arrays can be multiplied}
+         \PY{n}{average\PYZus{}lh\PYZus{}age} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{nansum}\PY{p}{(}\PY{n}{ages}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{left\PYZus{}handed\PYZus{}probability}\PY{p}{)}\PY{p}{)}
+         \PY{n}{average\PYZus{}rh\PYZus{}age} \PY{o}{=}  \PY{n}{np}\PY{o}{.}\PY{n}{nansum}\PY{p}{(}\PY{n}{ages}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{right\PYZus{}handed\PYZus{}probability}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print the average ages for each group}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average left\PYZhy{}handed death age is }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{average\PYZus{}lh\PYZus{}age}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average right\PYZhy{}handed death age is }\PY{l+s+s1}{\PYZsq{}}\PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{average\PYZus{}rh\PYZus{}age}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} print the difference between the average ages}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The difference in average ages is }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+               \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{average\PYZus{}lh\PYZus{}age} \PY{o}{\PYZhy{}} \PY{n}{average\PYZus{}rh\PYZus{}age}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ years.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average left-handed death age is 67.24503662801027
+Average right-handed death age is 72.79171936526477
+The difference in average ages is -5.5 years.
+
+    \end{Verbatim}
+
+    \subsection{10. Final comments}\label{final-comments}
+
+We got a pretty big age gap between left-handed and right-handed people
+purely as a result of the changing rates of left-handedness in the
+population, which is good news for left-handers: you probably won't die
+young because of your sinisterness. The reported rates of
+left-handedness have increased from just 3\% in the early 1900s to about
+11\% today, which means that older people are much more likely to be
+reported as right-handed than left-handed, and so looking at a sample of
+recently deceased people will have more old right-handers.
+
+Our number is still less than the 9-year gap measured in the study. It's
+possible that some of the approximations we made are the cause:
+
+We used death distribution data from almost ten years after the study
+(1999 instead of 1991), and we used death data from the entire United
+States instead of California alone (which was the original study).
+
+We extrapolated the left-handedness survey results to older and younger
+age groups, but it's possible our extrapolation wasn't close enough to
+the true rates for those ages.
+
+One thing we could do next is figure out how much variability we would
+expect to encounter in the age difference purely because of random
+sampling: if you take a smaller sample of recently deceased people and
+assign handedness with the probabilities of the survey, what does that
+distribution look like? How often would we encounter an age gap of nine
+years using the same data and assumptions? We won't do that here, but
+it's possible with this data and the tools of random sampling.
+
+To finish off, let's calculate the age gap we'd expect if we did the
+study in 2018 instead of in 1990. The gap turns out to be much smaller
+since rates of left-handedness haven't increased for people born after
+about 1960. Both the National Geographic study and the 1990 study
+happened at a unique time - the rates of left-handedness had been
+changing across the lifetimes of most people alive, and the difference
+in handedness between old and young was at its most striking.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Calculate the probability of being left\PYZhy{} or right\PYZhy{}handed for all ages}
+         \PY{n}{left\PYZus{}handed\PYZus{}probability\PYZus{}2018} \PY{o}{=}  \PY{n}{P\PYZus{}A\PYZus{}given\PYZus{}lh}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{o}{=}\PY{l+m+mi}{2018}\PY{p}{)}
+         \PY{n}{right\PYZus{}handed\PYZus{}probability\PYZus{}2018} \PY{o}{=} \PY{n}{P\PYZus{}A\PYZus{}given\PYZus{}rh}\PY{p}{(}\PY{n}{ages}\PY{p}{,} \PY{n}{death\PYZus{}distribution\PYZus{}data}\PY{p}{,} \PY{n}{study\PYZus{}year}\PY{o}{=}\PY{l+m+mi}{2018}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} calculate average ages for left\PYZhy{}handed and right\PYZhy{}handed groups}
+         \PY{n}{average\PYZus{}lh\PYZus{}age\PYZus{}2018} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nansum}\PY{p}{(}\PY{n}{ages}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{left\PYZus{}handed\PYZus{}probability\PYZus{}2018}\PY{p}{)}\PY{p}{)}
+         \PY{n}{average\PYZus{}rh\PYZus{}age\PYZus{}2018} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nansum}\PY{p}{(}\PY{n}{ages}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{right\PYZus{}handed\PYZus{}probability\PYZus{}2018}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The difference in average ages between left\PYZhy{}handed and right\PYZhy{}handed is }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} 
+               \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{n}{average\PYZus{}rh\PYZus{}age\PYZus{}2018} \PY{o}{\PYZhy{}} \PY{n}{average\PYZus{}lh\PYZus{}age\PYZus{}2018}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ years.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The difference in average ages between left-handed and right-handed is 2.3 years.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-6-55abf84c2bf8>", line 1
+        ((*- extends 'article.tplx' -*))
+                                  \^{}
+    SyntaxError: invalid syntax
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
